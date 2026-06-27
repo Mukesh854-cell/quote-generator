@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: 'Georgia', serif;
+        }
+
+        .container {
+            background: wheat;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quote-text::before {
+            content: '"';
+        }
+
+        .quote-text::after {
+            content: '"';
+        }
+
+        .author {
+            display: block;
+            font-size: 1rem;
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .new-quote {
+            background: linear-gradient(to right, #ff12f4, #c279bd);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .new-quote:hover {
+            background: #667eea;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="quote-text"></p>
+        <p class="author"></p>
+        <button class="new-quote">New Quote</button>
+    </div>
+
+    <script>
+        const quoteText = document.querySelector('.quote-text');
+        const author = document.querySelector('.author');
+        const newQuoteBtn = document.querySelector('.new-quote');
+
+        async function getQuote() {
+            let response = await fetch('https://dummyjson.com/quotes/random');
+            let data = await response.json();
+            quoteText.textContent = data.quote;
+            author.textContent = data.author;    
+        }
+        newQuoteBtn.addEventListener('click', () => {
+            getQuote();
+        })
+        getQuote();
+    </script>
+</body>
+</html>
